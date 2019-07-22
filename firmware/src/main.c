@@ -48,8 +48,8 @@ static ble_gap_adv_data_t m_adv_data = {
  *@brief Struct that contains position data. 
  */
 struct PositionDataStr {
-    uint32_t latitude;
-    uint32_t longitude;
+    int32_t latitude;
+    int32_t longitude;
 } __attribute__((packed)) m_beacon_info = { 0, 0 };
 
 /*
@@ -207,7 +207,7 @@ static void idle_state_handle(void)
  *@brief   Function for handling app_uart events.
  *
  * @details This function receives a single character from the app_uart module and appends it to
- *          a string. The string is rarsed and sent over BLE  advertising when the last character received is a
+ *          a string. The string is parsed and sent over BLE advertising when the last character received is a
  *          'new line' '\n' (hex 0x0A) or if the string reaches the maximum data length.
  */
 void uart_event_handle(app_uart_evt_t* p_event)
@@ -230,16 +230,15 @@ void uart_event_handle(app_uart_evt_t* p_event)
             case MINMEA_SENTENCE_RMC: {
                 struct minmea_sentence_rmc frame;
                 if (minmea_parse_rmc(&frame, data_array)) {
-                    uint32_t latitude = frame.latitude.value;
-                    uint32_t longitude = frame.longitude.value;
-                    uint32_t speed = minmea_rescale(&frame.speed, 1000);
+                    int32_t latitude = frame.latitude.value;
+                    int32_t longitude = frame.longitude.value;
+                    int32_t speed = minmea_rescale(&frame.speed, 1000);
 
                     NRF_LOG_DEBUG("$xxRMC fixed-point RAW coordinates and speed: (%d,%d) %d\n",
                         latitude, longitude, speed);
 
                     m_beacon_info.latitude = latitude;
                     m_beacon_info.longitude = longitude;
-
                     // FIXME: Dirty hack, make it without stop/start
                     advertising_stop();
                     advertising_init();

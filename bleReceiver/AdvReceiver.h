@@ -18,7 +18,7 @@ signals:
 
 private:
     static std::string getEirName(const uint8_t* eir, size_t eir_len);
-    double convertToDeg(uint32_t value);
+    double convertToDeg(int32_t value);
     void advReveiver(void);
 
     bool m_terminate = false;

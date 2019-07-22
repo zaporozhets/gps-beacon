@@ -135,8 +135,8 @@ void AdvReceiver::advReveiver()
         // Filter by NAME
         if ("tracker" == name) {
             struct PositionDataStr {
-                uint32_t latitude;
-                uint32_t longitude;
+                int32_t latitude;
+                int32_t longitude;
             } __attribute__((packed));
 
             auto adv = reinterpret_cast<PositionDataStr*>(&info->data[7]);
@@ -155,7 +155,7 @@ void AdvReceiver::advReveiver()
  * @param value
  * @return double
  */
-double AdvReceiver::convertToDeg(uint32_t value)
+double AdvReceiver::convertToDeg(int32_t value)
 {
     int32_t degrees = value / (100 * 1000);
     int32_t minutes = value % (100 * 1000);
