@@ -24,11 +24,16 @@ $GPRMC,094240.013,A,5926.547,N,02444.962,E,083.4,227.0,210719,000.0,W*72
 
 #### BLE advertising packet format
 ```02 01 04```= First element with flags
+
  ```0B``` = length of "MANUFACTURER_SPECIFIC_DATA"
- ```FF``` = indicates "MANUFACTURER_SPECIFIC_DATA"
- ```FF FF``` = Company identifier
- ```00 00 00 00 00 00 00 00``` = 4 bytes of latitude and 4bytes of longitude
-  ```08 09 74 72 61 63 6B 65 72 D2``` = Device short name "tracker"
+
+```FF``` = indicates "MANUFACTURER_SPECIFIC_DATA"
+
+```FF FF``` = Company identifier
+
+```00 00 00 00 00 00 00 00``` = 4 bytes of latitude and 4bytes of longitude
+
+```08 09 74 72 61 63 6B 65 72 D2``` = Device short name "tracker"
 
 
 ## nmeaSender
@@ -49,15 +54,13 @@ sudo ./bleReceiver/bleReceiver
 
 ## Required software
 1. Cross-platform IDE for embedded systems: [Segger Embedded Studio](
-https://www.segger.com/downloads/embedded-studio)
-After installation open and add ```nRF CPU Support Package``` via Tools->Package Manager
+https://www.segger.com/downloads/embedded-studio). After installation open and add ```nRF CPU Support Package``` via Tools->Package Manager
 	
 2. All-in-one debugging solution: [J-Link / J-Trace Downloads](
 https://www.segger.com/downloads/jlink#J-LinkSoftwareAndDocumentationPack) 
 
 3. Software development kit for the nRF52 SoC: [nRF5 SDK ver 15.3059 ac345](
-https://www.nordicsemi.com/-/media/Software-and-other-downloads/SDKs/nRF5/Binaries/nRF5SDK153059ac345.zip)
-Download and extract content to ```firmware/nRF5_SDK``` folder
+https://www.nordicsemi.com/-/media/Software-and-other-downloads/SDKs/nRF5/Binaries/nRF5SDK153059ac345.zip). Download and extract content to ```firmware/nRF5_SDK``` folder
 
 4. Libraries to compile PC utils:
 ```
