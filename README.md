@@ -1,4 +1,4 @@
-#Task
+# Task
 
 Make BLE beacon to transmit GPS coordinates:
 - GPS coordinates should be given to the beacon via command from PC
@@ -6,14 +6,14 @@ Make BLE beacon to transmit GPS coordinates:
 - GPS coordinates should be transmitted as advertising data
 
 
-#Solution
+# Solution
 
 Solution consists of firmware for NRF52 and two PC applications (nmeaSender and bleReceiver).
 
-##Firmware
+## Firmware
 It receives NMEA GPRMC messages via UART and parses them. After parsing, firmware updates advertising data with new latitude and longitude.
 
-####UART settings and data format
+#### UART settings and data format
 Port settings: 115200, 8bit, no parity, no flow.
 NMEA string example:
 ```
@@ -22,7 +22,7 @@ $GPRMC,094240.013,A,5926.547,N,02444.962,E,083.4,227.0,210719,000.0,W*72
 ```
 ```<CR><LF>``` ends the message.
 
-####BLE advertising packet format
+#### BLE advertising packet format
 ```02 01 04```= First element with flags
  ```0B``` = length of "MANUFACTURER_SPECIFIC_DATA"
  ```FF``` = indicates "MANUFACTURER_SPECIFIC_DATA"
@@ -31,14 +31,14 @@ $GPRMC,094240.013,A,5926.547,N,02444.962,E,083.4,227.0,210719,000.0,W*72
   ```08 09 74 72 61 63 6B 65 72 D2``` = Device short name "tracker"
 
 
-##nmeaSender
+## nmeaSender
 App reads line by line NMEA data from file and sends to serial port with period 1 sec.
 ~~~sh
 ./nmeaSender/nmeaSender /dev/ttyACM0 nmeaSender/sample.nmea
 ~~~
 Tool for generating GPS logs in NMEA format: [NMEA Generator](https://nmeagen.org/)
 
-##bleReceiver
+## bleReceiver
 App receives BLE advertising packets, parse and draw points on the map. It uses Bluez HCI so it requires root privileges to run. 
 ~~~sh
 sudo ./bleReceiver/bleReceiver 
@@ -47,28 +47,28 @@ sudo ./bleReceiver/bleReceiver
 
 
 
-##Required software
-1.Cross-platform IDE for embedded systems: [Segger Embedded Studio](
+## Required software
+1. Cross-platform IDE for embedded systems: [Segger Embedded Studio](
 https://www.segger.com/downloads/embedded-studio)
 After installation open and add ```nRF CPU Support Package``` via Tools->Package Manager
 	
-2.All-in-one debugging solution: [J-Link / J-Trace Downloads](
+2. All-in-one debugging solution: [J-Link / J-Trace Downloads](
 https://www.segger.com/downloads/jlink#J-LinkSoftwareAndDocumentationPack) 
 
-3.Software development kit for the nRF52 SoC: [nRF5 SDK ver 15.3059 ac345](
+3. Software development kit for the nRF52 SoC: [nRF5 SDK ver 15.3059 ac345](
 https://www.nordicsemi.com/-/media/Software-and-other-downloads/SDKs/nRF5/Binaries/nRF5SDK153059ac345.zip)
 Download and extract content to ```firmware/nRF5_SDK``` folder
 
-4.Libraries to compile PC utils:
+4. Libraries to compile PC utils:
 ```
 sudo apt install libbluetooth-dev 
 ```
 And [Qt 5.12](https://www.qt.io/download) framework
 
 
-##How to build
+## How to build
 
-1.nmeaSender
+1. nmeaSender
 
 ~~~sh
 cd nmeaSender
