@@ -4,3 +4,10 @@ Makefile
 *.o
 nmeaSender/nmeaSender
 bleReceiver/bleReceiver
+
+.qmake.stash
+moc_*
+qrc_*
+firmware/Output/
+firmware/beacon_Debug.jlink
+firmware/nRF5_SDK/
