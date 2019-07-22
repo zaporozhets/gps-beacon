@@ -1,2 +1,6 @@
 *.pro.user
 build-*
+Makefile
+*.o
+nmeaSender/nmeaSender
+bleReceiver/bleReceiver
